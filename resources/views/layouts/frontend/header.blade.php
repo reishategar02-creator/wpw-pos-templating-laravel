@@ -32,7 +32,7 @@
               <li><a href="#">Dropdown 4</a></li>
             </ul>
           </li>
-          <li><a href="{{ url('/login') }}" class="btn btn-outline-light btn-sm ms-2 px-3">Login</a></li>
+         <a href="{{ url('/login') }}" onclick="window.location.href='/login';" class="btn-get-started">Login</a>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>

@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <div class="app-brand demo">
-    <a href="{{ url('/admin') }}" class="app-brand-link">
+    <a href="{{ route('dashboard') }}" class="app-brand-link">
       <span class="app-brand-logo demo">
         <svg
           width="25"
@@ -67,52 +67,61 @@
   <div class="menu-inner-shadow"></div>
 
   <ul class="menu-inner py-1">
-    <!-- Dashboard -->
-    <li class="menu-item active">
-      <a href="{{ url('/admin') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div data-i18n="Analytics">Dashboard</div>
-      </a>
-    </li>
+  <!-- Dashboard (semua role) -->
+  <li class="menu-item {{ request()->routeIs('admin.dashboard', 'kasir.dashboard') ? 'active' : '' }}">
+    <a href="{{ route('dashboard') }}" class="menu-link">
+      <i class="menu-icon tf-icons bx bx-home-circle"></i>
+      <div>Dashboard</div>
+    </a>
+  </li>
 
-    <!-- Manajemen Toko -->
-    <li class="menu-header small text-uppercase">
-      <span class="menu-header-text">Manajemen Toko</span>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-        <div data-i18n="Produk">Data Produk</div>
-      </a>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-cart"></i>
-        <div data-i18n="Transaksi">Transaksi Kasir</div>
-      </a>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-detail"></i>
-        <div data-i18n="Laporan">Laporan Harian</div>
-      </a>
-    </li>
+  <li class="menu-header small text-uppercase">
+    <span class="menu-header-text">Manajemen Toko</span>
+  </li>
 
-    <!-- Navigasi Luar -->
-    <li class="menu-header small text-uppercase">
-      <span class="menu-header-text">Navigasi</span>
-    </li>
-    <li class="menu-item">
-      <a href="{{ url('/') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-world"></i>
-        <div data-i18n="Landing">Beranda Toko</div>
-      </a>
-    </li>
-    <li class="menu-item">
-      <a href="{{ url('/') }}" class="menu-link text-danger">
+  {{-- Khusus admin --}}
+  @auth
+    @if(auth()->user()->role === 'admin')
+      <li class="menu-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
+        <a href="{{ route('products.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+          <div>Data Produk</div>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-detail"></i>
+          <div>Laporan Harian</div>
+        </a>
+      </li>
+    @endif
+  @endauth
+
+  {{-- Admin + Kasir (placeholder, modul Transaksi belum dibuat) --}}
+  <li class="menu-item">
+    <a href="javascript:void(0);" class="menu-link">
+      <i class="menu-icon tf-icons bx bx-cart"></i>
+      <div>Transaksi Kasir</div>
+    </a>
+  </li>
+
+  <li class="menu-header small text-uppercase">
+    <span class="menu-header-text">Navigasi</span>
+  </li>
+  <li class="menu-item">
+    <a href="{{ url('/') }}" class="menu-link">
+      <i class="menu-icon tf-icons bx bx-world"></i>
+      <div>Beranda Toko</div>
+    </a>
+  </li>
+  <li class="menu-item">
+    <form method="POST" action="{{ route('logout') }}">
+      @csrf
+      <button type="submit" class="menu-link text-danger border-0 bg-transparent w-100 text-start">
         <i class="menu-icon tf-icons bx bx-power-off text-danger"></i>
-        <div data-i18n="Logout">Log Out</div>
-      </a>
-    </li>
-  </ul>
+        <div>Log Out</div>
+      </button>
+    </form>
+  </li>
+</ul>
 </aside>
