@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="{{ asset('admin_assets/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('admin_assets/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('admin_assets/assets/css/demo.css') }}" />
+    @stack('styles')
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('admin_assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
@@ -100,5 +101,6 @@
 
     <!-- Page JS -->
     <script src="{{ asset('admin_assets/assets/js/dashboards-analytics.js') }}"></script>
+    @stack('scripts')
   </body>
 </html>

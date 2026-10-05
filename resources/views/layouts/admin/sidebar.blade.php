@@ -88,12 +88,16 @@
           <div>Data Produk</div>
         </a>
       </li>
-      <li class="menu-item">
-        <a href="javascript:void(0);" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-detail"></i>
-          <div>Laporan Harian</div>
+      @auth
+    @if(auth()->user()->role === 'kasir')
+    <li class="menu-item {{ request()->routeIs('kasir.*') ? 'active' : '' }}">
+        <a href="{{ route('kasir.dashboard') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-cart"></i>
+            <div data-i18n="Transaksi">Transaksi Kasir</div>
         </a>
-      </li>
+    </li>
+    @endif
+@endauth
     @endif
   @endauth
 
