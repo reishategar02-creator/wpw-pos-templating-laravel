@@ -7,10 +7,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\EmailController;
 
 Route::get('/', function () {
     return view('frontend');
 });
+
+Route::post('/test-register-email', [EmailController::class, 'register'])->name('email.register');
+Route::get('/test-email', [EmailController::class, 'test'])->name('email.test');
 
 require __DIR__.'/auth.php';
 
