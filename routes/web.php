@@ -5,6 +5,8 @@ use App\Http\Controllers\KasirController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\ImageController;
 
 Route::get('/', function () {
     return view('frontend');
@@ -26,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/dashboard', function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
+        Route::middleware('role:admin')->get('/laporan-pdf', [LaporanController::class, 'generatePDF'])
+    ->name('laporan-pdf');
 
         Route::resource('products', ProductController::class);
     });
@@ -46,7 +50,12 @@ Route::middleware(['auth'])->group(function () {
 
          Route::post('/upload', [FileController::class, 'upload'])
             ->name('file.upload');
-    });
+
+        Route::get('/form-image', function () {
+            return view('form-image'); 
+            })->name('form-image');
+        Route::post('/form-image', [ImageController::class, 'uploadAndResize'])
+            ->name('image.upload');});
 
     // Profil (bawaan Breeze)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

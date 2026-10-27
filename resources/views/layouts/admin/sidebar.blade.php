@@ -89,6 +89,17 @@
         </a>
       </li>
       @auth
+    @if(auth()->user()->role === 'admin')
+      <!-- Menu Laporan Pegawai baru -->
+      <li class="menu-item {{ request()->routeIs('laporan-pdf') ? 'active' : '' }}">
+        <a href="{{ route('laporan-pdf') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-user"></i>
+          <div>Laporan Pegawai</div>
+        </a>
+      </li>
+    @endif
+@endauth
+      @auth
     @if(auth()->user()->role === 'kasir')
     <li class="menu-item {{ request()->routeIs('kasir.*') ? 'active' : '' }}">
         <a href="{{ route('kasir.dashboard') }}" class="menu-link">
@@ -96,6 +107,12 @@
             <div data-i18n="Transaksi">Transaksi Kasir</div>
         </a>
     </li>
+     <li class="menu-item {{ request()->routeIs('form-image') ? 'active' : '' }}">
+    <a href="{{ route('form-image') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-image"></i>
+        <div>Form Upload Gambar</div>
+    </a>
+</li>
     @endif
 @endauth
     @endif
