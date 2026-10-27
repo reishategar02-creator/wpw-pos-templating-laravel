@@ -11,6 +11,13 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        <script>
+            window.Laravel = {
+                userId: {{ auth()->id() ?? 'null' }},
+                csrfToken: '{{ csrf_token() }}'
+            };
+        </script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -32,5 +39,13 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <script>
+        window.Echo.private(`user.{{ auth()->id() }}`)
+        .listen('.order.placed', (e) => {
+            alert(`Order #${e.order_id} telah ditempatkan! Total: Rp ${e.total}`);
+            console.log('Order Placed:', e);
+        });
+        </script>
     </body>
 </html>

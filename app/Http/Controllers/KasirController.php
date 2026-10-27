@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\User;
+use App\Events\OrderPlaced;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -126,6 +128,9 @@ class KasirController extends Controller
                 'message' => 'Transaksi gagal diproses.',
             ], 500);
         }
+
+        $order = $transaction;
+        event(new OrderPlaced($order, auth()->user()));
 
         return response()->json([
             'success'  => true,

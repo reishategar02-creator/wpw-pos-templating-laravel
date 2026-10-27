@@ -14,7 +14,18 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.Laravel = {
+            userId: {{ auth()->id() ?? 'null' }},
+            csrfToken: '{{ csrf_token() }}'
+        };
+    </script>
+
     <title>@yield('title', 'Dashboard Admin - Gas-Jek')</title>
+
+    @vite(['resources/js/app.js'])
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('admin_assets/assets/img/favicon/favicon.ico') }}" />
@@ -102,5 +113,16 @@
     <!-- Page JS -->
     <script src="{{ asset('admin_assets/assets/js/dashboards-analytics.js') }}"></script>
     @stack('scripts')
+    @auth
+    <script>
+    if (window.Echo) {
+        window.Echo.private(`user.{{ auth()->id() }}`)
+        .listen('.order.placed', (e) => {
+            alert(`Order #${e.order_id} telah ditempatkan! Total: Rp ${e.total}`);
+            console.log('Order Placed:', e);
+        });
+    }
+    </script>
+    @endauth
   </body>
 </html>
