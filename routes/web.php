@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileController;  
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -42,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/kasir/transaksi/{transaction}/struk', [KasirController::class, 'struk'])
             ->name('kasir.transaksi.struk');
+
+         Route::post('/upload', [FileController::class, 'upload'])
+            ->name('file.upload');
     });
 
     // Profil (bawaan Breeze)

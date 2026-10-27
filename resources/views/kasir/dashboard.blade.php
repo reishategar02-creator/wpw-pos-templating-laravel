@@ -69,6 +69,25 @@
                 </table>
             </div>
         </div>
+        <div class="card mt-3">
+    <div class="card-header">Upload Bukti Pembayaran</div>
+    <div class="card-body">
+        <form method="POST" action="{{ route('file.upload') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <input type="file" name="file" class="form-control form-control-sm" accept="image/*,.pdf">
+                <small class="text-muted d-block">JPG, PNG, PDF. Maksimal 2MB.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload Sekarang</button>
+        </form>
+    </div>
+</div>
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{ session('success') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
     </div>
 
     {{-- RIGHT --}}
