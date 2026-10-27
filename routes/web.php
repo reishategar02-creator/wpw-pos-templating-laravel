@@ -53,9 +53,11 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/form-image', function () {
             return view('form-image'); 
-            })->name('form-image');
+        })->name('form-image');
+
         Route::post('/form-image', [ImageController::class, 'uploadAndResize'])
-            ->name('image.upload');});
+            ->name('image.upload');
+    });
 
     // Profil (bawaan Breeze)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -79,8 +79,8 @@
     <span class="menu-header-text">Manajemen Toko</span>
   </li>
 
-  {{-- Khusus admin --}}
   @auth
+    {{-- Khusus admin --}}
     @if(auth()->user()->role === 'admin')
       <li class="menu-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
         <a href="{{ route('products.index') }}" class="menu-link">
@@ -88,9 +88,6 @@
           <div>Data Produk</div>
         </a>
       </li>
-      @auth
-    @if(auth()->user()->role === 'admin')
-      <!-- Menu Laporan Pegawai baru -->
       <li class="menu-item {{ request()->routeIs('laporan-pdf') ? 'active' : '' }}">
         <a href="{{ route('laporan-pdf') }}" class="menu-link">
           <i class="menu-icon tf-icons bx bx-user"></i>
@@ -98,33 +95,23 @@
         </a>
       </li>
     @endif
-@endauth
-      @auth
+
+    {{-- Khusus kasir --}}
     @if(auth()->user()->role === 'kasir')
-    <li class="menu-item {{ request()->routeIs('kasir.*') ? 'active' : '' }}">
+      <li class="menu-item {{ request()->routeIs('kasir.*') ? 'active' : '' }}">
         <a href="{{ route('kasir.dashboard') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-cart"></i>
-            <div data-i18n="Transaksi">Transaksi Kasir</div>
+          <i class="menu-icon tf-icons bx bx-cart"></i>
+          <div data-i18n="Transaksi">Transaksi Kasir</div>
         </a>
-    </li>
-     <li class="menu-item {{ request()->routeIs('form-image') ? 'active' : '' }}">
-    <a href="{{ route('form-image') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-image"></i>
-        <div>Form Upload Gambar</div>
-    </a>
-</li>
-    @endif
-@endauth
+      </li>
+      <li class="menu-item {{ request()->routeIs('form-image') ? 'active' : '' }}">
+        <a href="{{ route('form-image') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-image"></i>
+          <div>Form Upload Gambar</div>
+        </a>
+      </li>
     @endif
   @endauth
-
-  {{-- Admin + Kasir (placeholder, modul Transaksi belum dibuat) --}}
-  <li class="menu-item">
-    <a href="javascript:void(0);" class="menu-link">
-      <i class="menu-icon tf-icons bx bx-cart"></i>
-      <div>Transaksi Kasir</div>
-    </a>
-  </li>
 
   <li class="menu-header small text-uppercase">
     <span class="menu-header-text">Navigasi</span>
