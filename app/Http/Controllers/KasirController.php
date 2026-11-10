@@ -9,6 +9,7 @@ use App\Events\OrderPlaced;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Services\ReceiptPrinter;
 
 class KasirController extends Controller
 {
@@ -131,6 +132,11 @@ class KasirController extends Controller
 
         $order = $transaction;
         event(new OrderPlaced($order, auth()->user()));
+         try {
+            app(ReceiptPrinter::class)->print($transaction);
+        } catch (\Throwable $e) {
+            report($e); // jika printer bermasalah, transaksi tetap tersimpan
+        }
 
         return response()->json([
             'success'  => true,
