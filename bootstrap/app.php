@@ -13,10 +13,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias([
-            'role' => RoleMiddleware::class,
-        ]);
-    })
+    $middleware->alias([
+        'role' => RoleMiddleware::class,
+    ]);
+    $middleware->validateCsrfTokens(except: [
+        'midtrans/notification',
+    ]);
+})
     ->withExceptions(function ($exceptions) {
         //
     })->create();

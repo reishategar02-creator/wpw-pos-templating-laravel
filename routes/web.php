@@ -9,6 +9,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ReceiptController;
+use App\Http\Controllers\MidtransController;
 
 Route::get('/', function () {
     return view('frontend');
@@ -70,4 +71,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+    Route::post('/checkout', [MidtransController::class, 'checkout']);
+Route::post('/midtrans/notification', [MidtransController::class, 'notification']);
+
+// [Tambahan] halaman untuk menampilkan tombol bayar (Langkah 3)
+Route::get('/pay', function () {
+    return view('checkout');
 });
