@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\ReceiptController;
 
 Route::get('/', function () {
     return view('frontend');
@@ -61,6 +62,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('/form-image', [ImageController::class, 'uploadAndResize'])
             ->name('image.upload');
+
+        Route::get('/print-receipt', [ReceiptController::class, 'print'])->name('print.receipt');
     });
 
     // Profil (bawaan Breeze)
