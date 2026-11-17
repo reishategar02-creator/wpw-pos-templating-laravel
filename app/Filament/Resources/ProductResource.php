@@ -17,7 +17,8 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-cube';
+    protected static ?string $navigationGroup = 'Manajemen Master';
 
     public static function form(Form $form): Form
 {
@@ -41,6 +42,12 @@ class ProductResource extends Resource
                 ->label('Gambar Produk')
                 ->image()
                 ->directory('products'),
+            Forms\Components\Select::make('category_id')
+                ->label('Kategori Produk')
+                ->relationship('category', 'name')
+                ->searchable()
+                ->preload()
+                ->required(),
         ]);
 }
 
@@ -50,6 +57,9 @@ class ProductResource extends Resource
         ->columns([
             Tables\Columns\ImageColumn::make('image')
                 ->label('Gambar'),
+            Tables\Columns\TextColumn::make('category.name')
+                ->label('Kategori')
+                ->sortable(),
             Tables\Columns\TextColumn::make('name')
                 ->label('Nama Produk')
                 ->searchable()
@@ -60,7 +70,14 @@ class ProductResource extends Resource
                 ->sortable(),
             Tables\Columns\TextColumn::make('stock')
                 ->label('Stok')
+                ->badge()
+                ->color(fn (int $state): string => $state <= 5 ? 'danger' : 'success')
                 ->sortable(),
+        ])
+        ->filters([
+            Tables\Filters\SelectFilter::make('category')
+                ->label('Filter Kategori')
+                ->relationship('category', 'name'),
         ])
         ->actions([
             Tables\Actions\EditAction::make(),

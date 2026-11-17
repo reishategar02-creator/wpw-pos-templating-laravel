@@ -24,4 +24,9 @@ class Product extends Model
         'price' => 'decimal:2',
         'is_active' => 'boolean',
     ];
+
+    public function category()
+    {
+    return $this->belongsTo(Category::class);
+    }
 }
