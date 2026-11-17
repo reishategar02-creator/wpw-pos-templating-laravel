@@ -10,14 +10,15 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'category',
-        'description',
-        'price',
-        'stock',
-        'image',
-        'is_active',
-    ];
+    'name',
+    'category',
+    'category_id',
+    'description',
+    'price',
+    'stock',
+    'image',
+    'is_active',
+];
 
     protected $casts = [
         'price' => 'decimal:2',
